@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Professional Self-Assessment — Richard T. Walker</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site">
+    <div class="top">
+      <div class="brand">Richard T. Walker<small>Computer Science Capstone · SNHU CS 499</small></div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="self-assessment.html" aria-current="page">Self-Assessment</a>
+      <a href="code-review.html">Code Review</a>
+      <a href="software-design.html">Software Design</a>
+      <a href="algorithms.html">Algorithms</a>
+      <a href="databases.html">Databases</a>
+    </nav>
+  </header>
+  <main id="content">
+    <p class="kicker">Introduction · October 2026</p>
+    <h1>Professional self-assessment</h1>
+    <p class="lede">Richard T. Walker · Southern New Hampshire University · CS 499 Computer Science Capstone</p>
+
+    <h2>Introduction</h2>
+    <p>Completing the Computer Science program at Southern New Hampshire University and building this ePortfolio has clarified both my technical strengths and the direction I want to take after finishing the degree. I began the program in Data Analytics. An early course that used SQL showed me I preferred the problem-solving of writing and structuring code, so I changed majors. The degree has given me the software and data skills needed for IT and cybersecurity roles for the federal government, focused on secure software and data systems.</p>
+    <p>The coursework and the process of selecting, enhancing, and presenting work for this portfolio have given me concrete examples of those skills. They have also sharpened my professional values around maintainable code, careful handling of credentials and data, and clear explanation of design choices. Employers reviewing candidates with similar technical qualifications will see evidence that I can take an existing system, identify gaps in security or performance, and improve it in a way that is documented and testable.</p>
+
+    <h2>Skills developed across the program</h2>
+    <p>The following sections describe how the program and the ePortfolio process developed the skills that matter for employability. The examples come from coursework outside the three technical artifacts that follow this self-assessment.</p>
+
+    <h3>Collaborating in a team environment</h3>
+    <p>Even in an online program, collaboration was a regular part of the work. Discussion boards and peer feedback required clear written communication and respect for different approaches to the same problem. Shared project expectations in courses such as software testing and client/server development meant coordinating on requirements and standards. In the capstone, the structured code review required the use of clear communication. The process involved a review against a checklist, a focus on structure, logic, and defensive programming, and treating the review as a way to improve the work before it is considered complete. That habit of structured feedback is transferable to any team that maintains software.</p>
+
+    <h3>Communicating with stakeholders</h3>
+    <p>Stakeholders are not always other developers. Coursework required me to explain design choices in README files, narrative documents, and the code-review video so that someone who was not in the room could follow the reasoning. The journals in this course required me to connect technical decisions to career goals and emerging trends such as zero trust and post-quantum cryptography. Those exercises trained me to write for an audience that needs to understand both the problem and the trade-offs.</p>
+
+    <h3>Data structures and algorithms</h3>
+    <p>Courses in data structures and algorithms taught me to choose the right organization for a problem and to consider the cost of a full scan versus an index. Earlier coursework moved from simple lists to maps for lookups and required evaluation of search and sort costs. Being able to quantify the difference of an index lookup versus a linear scan matters when a system grows beyond classroom size. That foundation supports the index and prefix-search work shown later in the portfolio and is the same thinking I would apply when a system must answer queries quickly without scanning every record.</p>
+
+    <h3>Software engineering and databases</h3>
+    <p>Software engineering coursework covered the full path from requirements to tested code. Database work ranged from structured SQL environments to document stores. I learned to separate concerns, write unit tests that prove requirements are met, and design queries that return useful results rather than raw records. The program also reinforced documentation and version control so that another engineer can pick up the work. These practices appear across mobile persistence, service-layer validation, and remote analytics, and they match the maintainable-code expectation that appears in the government and federal contractor postings I have reviewed.</p>
+
+    <h3>Security</h3>
+    <p>Security has been a consistent theme throughout my work in the computer science program. Early courses introduced input validation and basic authentication. Later work focused on keeping secrets out of source, hashing credentials, and isolating data by user. The journals on trends pushed me to learn about concepts like zero trust and post-quantum planning. Zero trust means identity and least privilege belong in the design, not as a later firewall rule, and post-quantum planning means knowing where long-lived public-key material sits. Additionally, generative AI and confidential computing raise related questions about data spills and protecting data while it is in use. These topics align directly with the government environments I am preparing for, where personnel and mission data must remain protected for years. The decision to remove plaintext credentials from any public copy of the portfolio is one concrete result of that mindset.</p>
+
+    <h2>How the work meets course and program outcomes</h2>
+    <p>The enhancements and supporting materials in this portfolio demonstrate the five CS 499 course outcomes. Those outcomes map to the broader Computer Science program outcomes of analyzing problems, designing and evaluating solutions, communicating effectively, recognizing professional responsibilities, and applying computer science theory and software development fundamentals.</p>
+    <p>Outcome 1 is collaborative environments that support organizational decision making. This is shown in the structured code-review process and in work that turns raw records into filtered, aggregated views a trainer or analyst can use.</p>
+    <p>Outcome 2 is professional oral, written, and visual communications. This is met by the narratives, README files, this self-assessment, and the narrated code-review video.</p>
+    <p>Outcome 3 is algorithmic solutions and managed trade-offs. This is met by secondary indexes, prefix search, sorted listing, and a documented performance difference.</p>
+    <p>Outcome 4 is techniques, skills, and tools that deliver value. This is met by the use of Room with non-destructive migration, JUnit tests, MongoDB indexes and aggregation pipelines, and the resulting usable features.</p>
+    <p>Outcome 5 is a security mindset. This is met across the portfolio: password hashing and per-user isolation, input validation that rejects blank or malformed data, environment-based credentials instead of hard-coded passwords, and the explicit removal of secrets before any public posting.</p>
+
+    <h2>How the artifacts fit together</h2>
+    <p>The three artifacts that follow this self-assessment were chosen from different courses so the portfolio shows range rather than a single stack. They illustrate the full set of skills described above.</p>
+    <p>The CS 360 Weight Tracking Android application demonstrates software design and engineering. The enhanced version uses layered data access with Room, a non-destructive database migration, session-based user isolation, PBKDF2 password hashing with salt, input validation, and a clearer progress view. Unit tests cover the security and validation paths. The design moves the application closer to a maintainable product that protects user data.</p>
+    <p>The CS 320 Contact Service demonstrates algorithms and data structures. Secondary HashMap indexes on last name and phone support prefix search and sorted listing without scanning the entire collection. Centralized validation rejects blank fields and enforces a ten-digit phone number. Twenty-two JUnit tests and a benchmark of eight thousand contacts document the improvement. The work shows that I can evaluate a data-structure choice and quantify its effect.</p>
+    <p>The CS 340 Grazioso Salvare dashboard demonstrates databases. Credentials are read from the environment rather than stored in source. Indexes are created on filter fields, including a compound index for the rescue filter. An aggregation pipeline with $facet returns analytics alongside the result set. The map is capped to the selected row or twenty-five markers, and update operations refuse empty criteria. Fourteen unit tests use a fake collection. The result is a dashboard that supports operational decisions while protecting the connection string.</p>
+    <p>Together the three artifacts show that I can work across mobile, service, and data layers while applying the same security and documentation standards. The pages that follow contain the original and enhanced source, the narratives that explain the changes, and the code-review recording that walks through the decisions.</p>
+
+    <div class="card">
+      <p><a href="downloads/Self-Assessment.docx">Download the self-assessment</a></p>
+    </div>
+    <p><a href="code-review.html">Continue to the informal code review</a></p>
+  </main>
+  <footer>Richard T. Walker · Southern New Hampshire University · CS 499</footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Informal Code Review — Richard T. Walker</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site">
+    <div class="top">
+      <div class="brand">Richard T. Walker<small>Computer Science Capstone · SNHU CS 499</small></div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="self-assessment.html">Self-Assessment</a>
+      <a href="code-review.html" aria-current="page">Code Review</a>
+      <a href="software-design.html">Software Design</a>
+      <a href="algorithms.html">Algorithms</a>
+      <a href="databases.html">Databases</a>
+    </nav>
+  </header>
+  <main id="content">
+    <p class="kicker">Milestone One · before the enhancements</p>
+    <h1>Informal code review</h1>
+    <p class="lede">Recorded in Module Two for a peer or manager audience. The review walks the three artifacts as they stood after CS 360, CS 320, and CS 340, then states the change planned for each finding.</p>
+
+    <div class="card" id="video">
+      <p class="meta">Informal code review · Module Two</p>
+      <div style="position:relative;padding-top:56.25%;margin:12px 0;">
+        <iframe
+          src="https://www.youtube.com/embed/TUdXa5GC_iw"
+          title="CS 499 informal code review"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+      <p><a href="https://youtu.be/TUdXa5GC_iw">Open the code review on YouTube</a></p>
+      <p class="meta">Unlisted link. Written transcript: <a href="downloads/Code-Review-Transcript.txt">Code-Review-Transcript.txt</a></p>
+    </div>
+
+    <h2>Existing functionality</h2>
+    <h3>Weight Tracking, CS 360, April 2026</h3>
+    <p>This artifact I chose for software design is a Java Android app with three screens: login, weight history, and SMS notifications. A user can create an account, sign in, log a weight, set a goal, and get a text when the goal is reached. Room holds a users table and a weight-entries table. The app already ran end to end.</p>
+    <h3>Contact Service, CS 320, June 2025</h3>
+    <p>This artifact I chose for algorithms is an in-memory Java directory. Contact stores an id, first name, last name, phone, and address. ContactService adds a contact, finds it by id, updates each field by id, and deletes it by id. A HashMap already keyed lookups by contact id. JUnit tests covered construction, duplicate ids, and field updates.</p>
+    <h3>Grazioso Salvare, CS 340, February 2026</h3>
+    <p>This artifact I chose for databases is a Python CRUD module and a Dash notebook over the Austin Animal Center collection in MongoDB. Rescue buttons filter the table. A pie chart and a map sit on the filtered rows. Staff could already search, update, and delete animal documents.</p>
+
+    <h2>Code analysis</h2>
+    <table>
+      <thead>
+        <tr><th>Artifact</th><th>Finding</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Weight Tracking</td><td>Passwords stored as typed text. Login opened the history screen with no user id, so the list loaded every row. The goal lived in one SharedPreferences value for the device. Room ran on the main thread. Schema changes wiped the database. Dates were always today.</td></tr>
+        <tr><td>Contact Service</td><td>Id lookup was already fast. There was no second path for last name or phone, and no sorted listing. Phone was checked for length, not digits. Empty ids and names passed a null-or-too-long check.</td></tr>
+        <tr><td>Grazioso Salvare</td><td>A database password sat in the module and the notebook. Reads pulled a full Python list. Counts and breed charts were computed after the documents were already in memory. Update could run on an empty filter. The map could render the whole collection.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Planned enhancements</h2>
+    <p>The review mapped each finding to a change, and mapped those changes to the five course outcomes.</p>
+    <ul>
+      <li>Outcome 1, an environment that helps different audiences decide, stays with Grazioso Salvare: rescue filters plus a database-side summary for trainers, analysts, and leadership.</li>
+      <li>Outcome 2, professional communication, is the review itself, the README files, and the narratives on the next three pages.</li>
+      <li>Outcome 3, algorithmic trade-offs, stays with Contact Service: keep the id HashMap, add last-name and phone indexes, sort a copy, and measure the difference.</li>
+      <li>Outcome 4, standard tools used for operational value, is Room and hashing on the app, Java collections and JUnit on the directory, and MongoDB indexes, aggregation, and Dash on the shelter dashboard.</li>
+      <li>Outcome 5, a security mindset, is hashing and account isolation on the app, and removing the password from Grazioso source so a missing secret fails startup instead of falling back to a default.</li>
+    </ul>
+    <p>The implemented results are on the artifact pages. This page records the plan, not the finished code.</p>
+    <p><a href="software-design.html">Continue to Artifact One</a></p>
+  </main>
+  <footer>Richard T. Walker · Southern New Hampshire University · CS 499</footer>
+</body>
+</html>

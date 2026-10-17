@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Software Design — Weight Tracking — Richard T. Walker</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site">
+    <div class="top">
+      <div class="brand">Richard T. Walker<small>Computer Science Capstone · SNHU CS 499</small></div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="self-assessment.html">Self-Assessment</a>
+      <a href="code-review.html">Code Review</a>
+      <a href="software-design.html" aria-current="page">Software Design</a>
+      <a href="algorithms.html">Algorithms</a>
+      <a href="databases.html">Databases</a>
+    </nav>
+  </header>
+  <main id="content">
+    <p class="kicker">Milestone Two · Software design and engineering</p>
+    <h1>Weight Tracking Android app</h1>
+    <p class="meta">Artifact One · CS 360 · originally April 2026 · enhanced September 2026</p>
+
+    <h2>The artifact</h2>
+    <p>This artifact I chose is the Weight Tracking app I built in CS 360 in April 2026. It is a Java Android app with three screens: login, weight history, and SMS notifications. A user can create an account, sign in, log weight, set a goal, and get a text when the goal is reached. Data is stored in Room with a users table and a weight-entries table.</p>
+    <p>The CS 360 version already ran end to end, but the design was weak. Passwords were stored in plain text. Login did not pass a user id, so the history list loaded every row. The goal was one SharedPreferences value for the whole device. Room ran on the main thread, and schema changes wiped the database. Dates were always set to today.</p>
+
+    <h2>Why it is here</h2>
+    <p>I chose this project because it was a complete Android client, not a partial assignment. It already used Activities, Room, RecyclerView, and permissions, so I could improve structure and security instead of starting over. The components that showcase software-development skill are the authentication path, the Room schema, the data-access layer, and the main-screen workflow. Those four pieces decide whether the app is a demo or something that can hold personal health data. The enhancement work concentrated there.</p>
+    <p>The enhancement follows the Module Two code review. Passwords are hashed with PBKDF2 and a per-account salt. Login looks up the user by name, checks the hash, and sends the user id to the main screen. Weight rows and the goal now belong to that user. WeightRepository runs Room calls on a background thread. The database is version 3 with a written migration instead of a destructive reset. Users can enter a date, weights at or below zero are rejected, and the main screen shows current weight, goal, and remaining difference. I also extracted WeightAdapter, turned backup off, added file headers and a README, and wrote unit tests for hashing and input checks.</p>
+
+    <h2>Course outcomes</h2>
+    <p>This work covers the three outcomes I assigned to Artifact One in Module One.</p>
+    <p>Outcome 2 is professional communication. The README and class headers explain the design to another programmer. The progress header on the main screen shows current weight, goal, and remaining difference without opening the database.</p>
+    <p>Outcome 4 is using standard tools to deliver a more usable app. I kept Android and Room, added a repository so database work runs off the UI thread, wrote a version-3 migration, and added a date field plus JUnit tests for hashing and input checks.</p>
+    <p>Outcome 5 is a security mindset. Passwords are hashed, login passes a user id, and each account only sees its own history and goal. Backup is turned off so a device backup does not copy the local credential store.</p>
+    <p>Outcomes 1 and 3 will be covered with the other two artifacts.</p>
+
+    <h2>What I learned</h2>
+    <p>The CS 360 app ran, but identity stopped at login. Once I followed one account from create-user to the history query, it was clear why every user saw the same list, nothing after login still knew who was signed in. Adding the user id to the Intent, storing it on each weight row, filtering the queries, and moving the goal onto the user record all came from that one gap.</p>
+    <p>The other decision was how to handle the database upgrade. Wiping the tables would have been faster, but it would also have deleted existing accounts. Instead, I kept the original password column, stored the salt and hash in that same field, and wrote a migration that adds the new columns rather than dropping the tables. That kept local data intact and was the better design for this project.</p>
+
+    <div class="card">
+      <p><a href="downloads/WeightTracking-original-and-enhanced.zip">Download original and enhanced source</a></p>
+      <p><a href="downloads/Milestone-Two-Narrative.docx">Narrative document</a></p>
+    </div>
+    <p><a href="algorithms.html">Continue to Artifact Two</a></p>
+  </main>
+  <footer>Richard T. Walker · Southern New Hampshire University · CS 499</footer>
+</body>
+</html>

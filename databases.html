@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Databases — Grazioso Salvare — Richard T. Walker</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site">
+    <div class="top">
+      <div class="brand">Richard T. Walker<small>Computer Science Capstone · SNHU CS 499</small></div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="self-assessment.html">Self-Assessment</a>
+      <a href="code-review.html">Code Review</a>
+      <a href="software-design.html">Software Design</a>
+      <a href="algorithms.html">Algorithms</a>
+      <a href="databases.html" aria-current="page">Databases</a>
+    </nav>
+  </header>
+  <main id="content">
+    <p class="kicker">Milestone Four · Databases</p>
+    <h1>Grazioso Salvare animal shelter</h1>
+    <p class="meta">Artifact Three · CS 340 · originally February 2026 · enhanced September 2026</p>
+
+    <h2>The artifact</h2>
+    <p>The artifact I chose is the Grazioso Salvare animal-shelter project I built in CS 340 in February 2026. CRUD_Python_Module.py talks to the MongoDB aac.animals collection and implements create, read, update, and delete. ProjectTwoDashboard.ipynb is the staff tool. It has Water Rescue, Mountain/Wilderness Rescue, Disaster/Tracking, and Reset filters, a pageable table, a breed pie chart, and a Leaflet map. The notebook was run against 10,001 imported shelter records.</p>
+    <p>The CS 340 version already connected to Mongo and filtered by rescue type. That path worked, but the design stayed thin. The database password was written in the constructor and again in the notebook. read() always turned the cursor into a full Python list. Breed counts ran in pandas after that list was loaded. Reset drew a map marker for every row. update() forwarded the caller’s dictionary with no $set guard.</p>
+
+    <h2>Why it is here</h2>
+    <p>I chose this project because it was already a database-backed decision-support tool. Moving it to another platform would not have shown new database work. The components that showcase skill in databases are the index helper, the aggregation pipeline, the stats panel that uses those results, and the credential change. Those four pieces decide whether staff page through raw rows or get a count, an average age, and the top breeds from MongoDB. The enhancement work concentrated there.</p>
+    <p>The enhancement follows the Module Two code review. AnimalShelter still keeps create, read, update, and delete. Credentials now come from AAC_USERNAME and AAC_PASSWORD. There is no password in the source. ensure_indexes() builds single-field indexes on animal_type, breed, sex_upon_outcome, and age_upon_outcome_in_weeks, plus a rescue_filter compound index on the same fields. aggregate() runs a pipeline. rescue_analytics() uses $match and $facet so candidate count, average age in weeks, and top breeds are computed in the database. The dashboard stats panel displays those numbers when a rescue filter is applied. read() still feeds the table and now accepts an optional limit. update() wraps a raw field dict in $set. Empty update and delete criteria are refused. The map uses the selected row, or at most 25 results, so Reset does not draw a pin for every imported animal. Unit tests cover those cases with a fake collection.</p>
+
+    <h2>Course outcomes</h2>
+    <p>This work covers the outcomes I assigned to Artifact Three in Module One. I have no changes to that plan. Outcome 3 is still met with Artifact Two.</p>
+    <p>Outcome 1 is building an environment that helps different audiences make a decision. Trainers get the candidate list for a rescue type. Analysts get top breeds and average age from the same filter. Leadership can see the size of the candidate pool on the stats panel without paging through the table.</p>
+    <p>Outcome 2 is professional communication. The README and enhancement notes map each code-review finding to a file. This narrative covers the same decisions for faculty. The stats panel is the visual summary for staff who are not reading the pipeline.</p>
+    <p>Outcome 4 is using standard tools to deliver operational value. I kept MongoDB, PyMongo, and Dash, added indexes on the filter fields, and moved the summary into an aggregation pipeline instead of counting rows in pandas.</p>
+    <p>Outcome 5 is a security mindset. The password is out of source. The constructor fails if the environment variables are missing. Update and delete refuse an empty filter so one call cannot touch the whole collection. The map no longer renders the full data set to answer a question.</p>
+
+    <h2>What I learned</h2>
+    <p>The CS 340 dashboard filtered animals, but the numbers staff needed were computed after the documents were already in memory. Once I traced Reset from the empty filter through read() into the pie chart and the map, it was clear that the table still needed rows. The count, the average age, and the top breeds did not.</p>
+    <p>The main design choice was whether to keep the pandas counts or move the summary into MongoDB. Keeping pandas would have been less code. I added one $facet pipeline so those three numbers come back in a single round trip, and I left the pie chart on the filtered table so the original view is still there. Indexes were the other half of that choice. Without them the same filter still works. With them the match in the pipeline and the table query use the fields the rescue buttons already send.</p>
+    <p>I also had to stop treating the constructor defaults as a convenience. A missing password should fail the start-up, not fall back to a secret in the file. After the unit tests passed against a fake collection, the remaining live check is running the notebook against the local aac.animals data with the environment variables set. I am more comfortable changing an existing data layer than rewriting the dashboard, including finding where a query belongs in the database and where it belongs in the browser.</p>
+
+    <div class="card">
+      <p><a href="downloads/GraziosoSalvare-original-and-enhanced.zip">Download original and enhanced source</a></p>
+      <p><a href="downloads/Milestone-Four-Narrative.docx">Narrative document</a></p>
+    </div>
+  </main>
+  <footer>Richard T. Walker · Southern New Hampshire University · CS 499</footer>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Algorithms — Contact Service — Richard T. Walker</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site">
+    <div class="top">
+      <div class="brand">Richard T. Walker<small>Computer Science Capstone · SNHU CS 499</small></div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="self-assessment.html">Self-Assessment</a>
+      <a href="code-review.html">Code Review</a>
+      <a href="software-design.html">Software Design</a>
+      <a href="algorithms.html" aria-current="page">Algorithms</a>
+      <a href="databases.html">Databases</a>
+    </nav>
+  </header>
+  <main id="content">
+    <p class="kicker">Milestone Three · Algorithms and data structures</p>
+    <h1>Contact Service</h1>
+    <p class="meta">Artifact Two · CS 320 · originally June 2025 · enhanced September 2026</p>
+
+    <h2>The artifact</h2>
+    <p>The artifact I chose is the Contact Service I built in CS 320 in June 2025. It is an in-memory Java directory. Contact stores an id, first name, last name, phone, and address. ContactService adds a contact, finds it by id, updates each field by id, and deletes it by id. Validation lives on the contact object. JUnit tests cover construction, duplicate ids, and field updates.</p>
+    <p>The CS 320 version already used a HashMap keyed by contact id, so add, find, update, and delete by id were average constant time. That path worked, but the design was still limited. There was no second way to find people, no sorted listing, and no measured comparison of search strategies. Phone values were checked for length, not digits. Empty ids and names passed because the check was null or longer than ten, not blank.</p>
+
+    <h2>Why it is here</h2>
+    <p>I chose this project because the id lookup was already solved. Replacing the HashMap with a list would not have shown new algorithm work. The components that showcase skill in algorithms and data structures are the primary id map, the last-name and phone indexes, the sorted listing, and the benchmark that compares those strategies. Those four pieces decide whether the directory is only fast by id or usable when the caller has a name or a phone number.</p>
+    <p>The enhancement follows the Module Two code review. ContactService still keeps a HashMap keyed by id for O(1) average add, find, update, and delete. A last-name index and a phone index were added so name and phone search do not scan the whole directory. registerContact and removeContact update all three maps. modifyLastName and modifyPhone move a contact out of the old bucket before they write the new value. searchByLastNamePrefix walks last-name keys instead of every contact. listAllSortedByName copies the values and sorts by last name, then first name. Validation now rejects blank ids, names, and addresses, and requires a ten-digit phone. New JUnit tests cover those cases plus index maintenance after a delete or a name change. A benchmark of 8,000 generated contacts showed last-name index lookup about 187 times faster than a linear scan. Id lookup stayed the fastest path. The extra memory for the two indexes is O(n).</p>
+
+    <h2>Course outcomes</h2>
+    <p>This work covers the two outcomes I assigned to Artifact Two in Module One.</p>
+    <p>Outcome 3 is design and evaluate a computing solution using algorithmic principles and manage the trade-offs. I kept HashMap for O(1) id lookup, added secondary indexes for name and phone, sorted a copy of the directory in O(n log n), and recorded a benchmark that compares linear scan, HashMap lookup, and the indexes, including the extra memory the indexes cost.</p>
+    <p>Outcome 4 is using standard tools to deliver that solution. I used Java collections for the three maps and JUnit 5 tests that prove prefix search, index maintenance after delete, and the stricter validation.</p>
+    <p>Outcomes 1 and 5 will be covered with the other two artifacts.</p>
+
+    <h2>What I learned</h2>
+    <p>The CS 320 service found contacts by id, but nothing else used a planned access path. Once I followed one contact from add to delete to a last-name change, it was clear the new index would go stale unless every write updated it. Removing the contact from the old last-name bucket before writing the new name, and doing the same for phone, all came from that one gap.</p>
+    <p>The other decision was whether to replace the HashMap or keep it and add indexes beside it. Replacing it would have made id lookup worse. I kept the original map for exact id operations and paid O(n) extra memory for the name and phone indexes. The benchmark made that trade-off visible: on 8,000 contacts the last-name index was significantly faster than scanning, and id lookup stayed the fastest call.</p>
+
+    <div class="card">
+      <p><a href="downloads/ContactService-original-and-enhanced.zip">Download original and enhanced source</a></p>
+      <p><a href="downloads/Milestone-Three-Narrative.docx">Narrative document</a></p>
+    </div>
+    <p><a href="databases.html">Continue to Artifact Three</a></p>
+  </main>
+  <footer>Richard T. Walker · Southern New Hampshire University · CS 499</footer>
+</body>
+</html>
