@@ -1,8 +1,13 @@
-# Richard T. Walker
-## Computer Science Capstone ePortfolio
-### Southern New Hampshire University — CS 499
+Richard T. Walker — CS 499 ePortfolio
+https://rtheronw.github.io/ePortfolio/
 
-This site will host my capstone ePortfolio, including original and enhanced artifacts for:
-- Software Engineering and Design
-- Algorithms and Data Structures
-- Databases
+This repository is the public GitHub Pages site for the SNHU CS 499 Computer Science Capstone.
+
+Published here:
+- Professional self-assessment 
+- Informal code review (Module Two), with the unlisted video at https://youtu.be/TUdXa5GC_iw
+- Artifact One narrative and original plus enhanced Weight Tracking source
+- Artifact Two narrative and Contact Service source
+- Artifact Three narrative and original plus enhanced Grazioso Salvare source
+
+
